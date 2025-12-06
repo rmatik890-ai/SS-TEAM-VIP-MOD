@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS TEAM VIP MOD </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #000;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Animations --- */
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @keyframes fire-border {
+            0% { --angle: 0deg; }
+            100% { --angle: 360deg; }
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        /* --- Common Styles --- */
+        .screen {
+            display: none;
+            height: calc(100% - 60px);
+            width: 100%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Login Screen --- */
+        #login-screen {
+            justify-content: center;
+            background: #000;
+        }
+
+        .fire-box {
+            position: relative;
+            width: 320px;
+            padding: 30px 20px;
+            background: #050505;
+            border-radius: 12px;
+            text-align: center;
+            
+            /* RED FIRE ANIMATION LOGIC */
+            background-image: linear-gradient(#050505, #050505), conic-gradient(from var(--angle), #ff0000, #ff5e00, #ff0000);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            border: 3px solid transparent;
+            animation: fire-border 2.5s linear infinite;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #ff0000;
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px #ff0000;
+        }
+        
+        /* Small profile for dashboard */
+        .dashboard-profile {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 5px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #00ffea;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            outline: none;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #ff0000, #8b0000);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* --- Hack Dashboard --- */
+        #hack-screen {
+            padding: 15px;
+            background: black;
+            justify-content: center;
+        }
+
+        .header-title {
+             font-family: 'Orbitron', sans-serif;
+             font-size: 18px;
+             color: white;
+             margin-bottom: 15px;
+             text-shadow: 0 0 5px red;
+        }
+
+        /* --- THE MAIN PREDICTION CARD (FIRE BOX) --- */
+        .prediction-card {
+            width: 100%;
+            max-width: 350px;
+            padding: 25px 20px;
+            background: #080808;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            
+            /* RED FIRE BORDER ANIMATION */
+            background-image: linear-gradient(#080808, #080808), conic-gradient(from var(--angle), #ff0000, #ff8c00, #ff0000);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            border: 3px solid transparent;
+            animation: fire-border 3s linear infinite;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-label {
+            color: #00ffea;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .period-display {
+            background: #151515;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            width: 100%;
+        }
+
+        .status-badge {
+            font-size: 10px;
+            color: #00ffea;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        /* Big/Small Result */
+        .result-wrapper {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-text {
+            font-size: 55px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .big { color: #28a745; text-shadow: 0 0 25px #28a745; }
+        .small { color: #dc3545; text-shadow: 0 0 25px #dc3545; }
+        .shaking { animation: shake 0.4s infinite; }
+
+        /* Timer Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #222;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff5e00);
+            width: 100%;
+            transition: width 1s linear;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        .timer-digit {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .confidence-level {
+            margin-top: 8px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* --- Telegram Button (Inside Box) --- */
+        .telegram-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: linear-gradient(90deg, #0088cc, #00aaff);
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 50px;
+            box-shadow: 0 0 15px rgba(0, 136, 204, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            transition: transform 0.2s;
+        }
+        
+        .telegram-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- Game Screen --- */
+        #game-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            height: 60px;
+            background: #000;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 100%;
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background: linear-gradient(to top, rgba(255, 0, 0, 0.1), transparent);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            height: 3px;
+        }
+
+        .nav-item:first-child.active::after { background: #ff00cc; box-shadow: 0 0 10px #ff00cc; }
+        .nav-item:last-child.active::after { background: #00ffea; box-shadow: 0 0 10px #00ffea; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen" class="screen active">
+        <div class="fire-box">
+            <img src="https://ik.imagekit.io/ljcih9oti/IMG_20251206_181318_724.jpg" alt="Logo" class="profile-img">
+            <h3 style="font-family: 'Orbitron'; margin-bottom: 10px;">SS TEAM VIP MOOD </h3>
+            <input type="password" id="pass" class="input-field" placeholder="PASSWORD">
+            <button class="action-btn" onclick="doLogin()">LOGIN NOW</button>
+            <div id="err" style="color: red; font-size: 12px; margin-top: 10px; display: none;">Wrong Password!</div>
+        </div>
+    </div>
+
+    <!-- 2. HACK SCREEN -->
+    <div id="hack-screen" class="screen">
+        
+        <!-- FIRE BOX (Main Content) -->
+        <div class="prediction-card">
+            
+            <!-- Profile Image and Name Inside Box -->
+            <img src="https://ik.imagekit.io/ljcih9oti/IMG_20251206_181318_724.jpg" alt="Logo" class="profile-img dashboard-profile">
+            <h3 class="header-title">SS TEAM VIP MOOD </h3>
+
+            <div class="card-label">TARGET PERIOD</div>
+            <div class="period-display" id="period">Loading...</div>
+
+            <div class="status-badge">PREDICTION STATUS: ACTIVE</div>
+
+            <div class="result-wrapper">
+                <div id="result" class="result-text shaking">WAIT</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-fill" id="bar"></div>
+            </div>
+            <div class="timer-digit" id="timer">30s</div>
+
+            <div class="confidence-level" id="confidence">Confidence: --%</div>
+
+            <!-- TELEGRAM BUTTON INSIDE THE BOX -->
+            <!-- Link টি পরিবর্তন করুন এখানে -->
+            <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="telegram-btn">JOIN TELEGRAM</a>
+        </div>
+        
+    </div>
+
+    <!-- 3. GAME SCREEN -->
+    <div id="game-screen" class="screen">
+        <iframe src="https://tkclub5.com/#/register?invitationCode=45686101629"></iframe>
+    </div>
+
+    <!-- 4. FOOTER -->
+    <div class="footer" id="footer" style="display: none;">
+        <button class="nav-item active" onclick="nav('hack')">HACK</button>
+        <button class="nav-item" onclick="nav('game')">GAME</button>
+    </div>
+
+    <script>
+        // CONFIG
+        const PASS = "SURIYAVIP01";
+
+        // ELEMENTS
+        const ui = {
+            login: document.getElementById('login-screen'),
+            hack: document.getElementById('hack-screen'),
+            game: document.getElementById('game-screen'),
+            footer: document.getElementById('footer'),
+            passInput: document.getElementById('pass'),
+            errMsg: document.getElementById('err'),
+            period: document.getElementById('period'),
+            result: document.getElementById('result'),
+            bar: document.getElementById('bar'),
+            timer: document.getElementById('timer'),
+            conf: document.getElementById('confidence')
+        };
+
+        let activePeriod = "";
+
+        // LOGIN
+        function doLogin() {
+            if (ui.passInput.value === PASS) {
+                ui.login.style.display = 'none';
+                ui.footer.style.display = 'flex';
+                nav('hack');
+                startSystem();
+            } else {
+                ui.errMsg.style.display = 'block';
+            }
+        }
+
+        // NAVIGATION
+        function nav(tab) {
+            const btns = document.querySelectorAll('.nav-item');
+            if (tab === 'hack') {
+                ui.hack.style.display = 'flex';
+                ui.game.style.display = 'none';
+                btns[0].classList.add('active');
+                btns[1].classList.remove('active');
+            } else {
+                ui.hack.style.display = 'none';
+                ui.game.style.display = 'block';
+                btns[0].classList.remove('active');
+                btns[1].classList.add('active');
+            }
+        }
+
+        // SYSTEM LOGIC
+        function startSystem() {
+            setInterval(update, 1000); // 1 sec loop
+            update();
+        }
+
+        function update() {
+            const now = new Date();
+            
+            // 1. Clock (BD Time)
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const bdTime = new Date(utc + (3600000 * 6));
+            
+            // 2. Period Calculation (Updated Logic: +1 for Next Period)
+            const yyyy = bdTime.getFullYear();
+            const mm = String(bdTime.getMonth() + 1).padStart(2, '0');
+            const dd = String(bdTime.getDate()).padStart(2, '0');
+            
+            const totalMins = (bdTime.getHours() * 60) + bdTime.getMinutes();
+            const seconds = bdTime.getSeconds();
+            
+            // Formula: (TotalMins * 2) + (1 if seconds >= 30)
+            let currentSeq = (totalMins * 2) + (seconds >= 30 ? 1 : 0);
+            
+            // UPDATE: Add 1 to show the NEXT period number
+            let nextSeq = currentSeq + 1;
+
+            const periodStr = `${yyyy}${mm}${dd}30${nextSeq}`;
+
+            if (activePeriod !== periodStr) {
+                activePeriod = periodStr;
+                ui.period.innerText = periodStr;
+                newPrediction(); // New period triggered
+            }
+
+            // 3. Timer (30s countdown)
+            const rem = 30 - (seconds % 30);
+            ui.timer.innerText = rem + "s";
+            ui.bar.style.width = ((rem / 30) * 100) + "%";
+            
+            // Color warning
+            if (rem <= 5) {
+                ui.timer.style.color = "white"; 
+                ui.bar.style.background = "red";
+                ui.result.classList.remove('shaking'); // Stop shaking at end
+            } else {
+                ui.timer.style.color = "#ff0000";
+                ui.bar.style.background = "linear-gradient(90deg, #ff0000, #ff5e00)";
+                ui.result.classList.add('shaking');
+            }
+        }
+
+        function newPrediction() {
+            // Random Logic
+            const isBig = Math.random() < 0.5;
+            ui.result.innerText = isBig ? "BIG" : "SMALL";
+            ui.result.className = "result-text shaking " + (isBig ? "big" : "small");
+            
+            const percentage = Math.floor(Math.random() * (95 - 60) + 60);
+            ui.conf.innerText = "Confidence: " + percentage + "%";
+        }
+    </script>
+</body>
+</html>
