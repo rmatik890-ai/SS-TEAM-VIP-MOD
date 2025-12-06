@@ -95,11 +95,12 @@
             box-shadow: 0 0 10px #ff0000;
         }
         
-        /* Small profile for dashboard */
+        /* Small profile for dashboard (Smaller now) */
         .dashboard-profile {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             margin-bottom: 5px;
+            border-width: 1px;
         }
 
         .input-field {
@@ -130,49 +131,85 @@
 
         /* --- Hack Dashboard --- */
         #hack-screen {
-            padding: 15px;
+            padding: 10px;
             background: black;
-            justify-content: center;
+            justify-content: flex-start; 
+            align-items: center;
+            overflow-y: scroll;
         }
 
         .header-title {
              font-family: 'Orbitron', sans-serif;
-             font-size: 18px;
+             font-size: 16px; /* Smaller font */
              color: white;
-             margin-bottom: 15px;
+             margin-bottom: 5px;
              text-shadow: 0 0 5px red;
         }
 
-        /* --- THE MAIN PREDICTION CARD (FIRE BOX) --- */
+        /* --- WIN/LOSS COUNTER --- */
+        .history-stats {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Reduced gap */
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .stat-box {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px; /* Smaller font */
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid #333;
+            min-width: 70px;
+        }
+
+        .win-stat {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #00ff00;
+            box-shadow: 0 0 5px rgba(0,255,0,0.3);
+        }
+
+        .loss-stat {
+            color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            box-shadow: 0 0 5px rgba(255,0,0,0.3);
+        }
+
+        /* --- PREDICTION CARD (COMPACT VERSION) --- */
         .prediction-card {
             width: 100%;
             max-width: 350px;
-            padding: 25px 20px;
+            padding: 15px 10px; /* Reduced Padding */
             background: #080808;
             border-radius: 15px;
             text-align: center;
             position: relative;
             
-            /* RED FIRE BORDER ANIMATION */
+            /* RED FIRE BORDER */
             background-image: linear-gradient(#080808, #080808), conic-gradient(from var(--angle), #ff0000, #ff8c00, #ff0000);
             background-origin: border-box;
             background-clip: padding-box, border-box;
             border: 3px solid transparent;
             animation: fire-border 3s linear infinite;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-bottom: 70px; /* Space for footer */
         }
 
         .card-label {
             color: #00ffea;
             font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
             text-transform: uppercase;
-            margin-top: 10px;
+            margin-top: 0px;
         }
 
         .period-display {
@@ -180,48 +217,47 @@
             border: 1px solid #333;
             color: #fff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            font-size: 16px; /* Smaller font */
+            padding: 6px; /* Smaller padding */
+            border-radius: 6px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
             width: 100%;
         }
 
         .status-badge {
-            font-size: 10px;
+            font-size: 9px;
             color: #00ffea;
             letter-spacing: 1px;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
-        /* Big/Small Result */
+        /* Big/Small Result (Compact) */
         .result-wrapper {
-            height: 100px;
+            height: 70px; /* Reduced Height */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .result-text {
-            font-size: 55px;
+            font-size: 40px; /* Smaller Font */
             font-weight: 900;
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        .big { color: #28a745; text-shadow: 0 0 25px #28a745; }
-        .small { color: #dc3545; text-shadow: 0 0 25px #dc3545; }
+        .big { color: #28a745; text-shadow: 0 0 15px #28a745; }
+        .small { color: #dc3545; text-shadow: 0 0 15px #dc3545; }
         .shaking { animation: shake 0.4s infinite; }
 
         /* Timer Bar */
         .progress-container {
             width: 100%;
-            height: 6px;
+            height: 4px; /* Thinner bar */
             background: #222;
             border-radius: 5px;
-            margin: 10px 0;
+            margin: 5px 0;
             overflow: hidden;
         }
 
@@ -230,37 +266,108 @@
             background: linear-gradient(90deg, #ff0000, #ff5e00);
             width: 100%;
             transition: width 1s linear;
-            box-shadow: 0 0 10px #ff0000;
+            box-shadow: 0 0 5px #ff0000;
         }
 
         .timer-digit {
             font-family: 'Orbitron', sans-serif;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         .confidence-level {
-            margin-top: 8px;
+            margin-top: 2px;
             color: #888;
-            font-size: 12px;
+            font-size: 10px;
+            margin-bottom: 10px;
         }
 
-        /* --- Telegram Button (Inside Box) --- */
+        /* --- INTERNAL HISTORY TABLE (SCROLLABLE) --- */
+        .internal-history-box {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .history-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffea;
+            font-size: 11px;
+            text-align: center;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 3px;
+            letter-spacing: 1px;
+        }
+
+        /* Wrapper for Scroll */
+        .table-scroll-wrapper {
+            max-height: 110px; /* Approx 5 rows */
+            overflow-y: auto; /* Enable Scroll */
+            scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: #ff0000 #111;
+        }
+        
+        /* Scrollbar Style for Chrome/Safari */
+        .table-scroll-wrapper::-webkit-scrollbar {
+            width: 3px;
+        }
+        .table-scroll-wrapper::-webkit-scrollbar-track {
+            background: #111;
+        }
+        .table-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #ff0000;
+            border-radius: 3px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            font-family: 'Orbitron', sans-serif;
+            color: #ccc;
+        }
+
+        .history-table th {
+            text-align: center;
+            padding: 4px;
+            color: #ff0000;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            background: #0a0a0a; /* Keep header visible */
+            z-index: 1;
+        }
+
+        .history-table td {
+            text-align: center;
+            padding: 4px;
+            border-bottom: 1px solid #222;
+        }
+
+        .row-win { color: #00ff00; }
+        .row-loss { color: #ff0000; }
+        .res-big { color: #28a745; }
+        .res-small { color: #dc3545; }
+
+        /* --- Telegram Button --- */
         .telegram-btn {
             display: block;
             width: 100%;
-            margin-top: 20px;
-            padding: 12px;
+            padding: 8px; /* Compact */
             background: linear-gradient(90deg, #0088cc, #00aaff);
             color: white;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             border-radius: 50px;
-            box-shadow: 0 0 15px rgba(0, 136, 204, 0.4);
+            box-shadow: 0 0 10px rgba(0, 136, 204, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.2);
             text-transform: uppercase;
             transition: transform 0.2s;
@@ -337,12 +444,17 @@
     <!-- 2. HACK SCREEN -->
     <div id="hack-screen" class="screen">
         
-        <!-- FIRE BOX (Main Content) -->
+        <!-- MAIN PREDICTION BOX (COMPACT VERSION) -->
         <div class="prediction-card">
             
-            <!-- Profile Image and Name Inside Box -->
             <img src="https://ik.imagekit.io/ljcih9oti/IMG_20251206_181318_724.jpg" alt="Logo" class="profile-img dashboard-profile">
             <h3 class="header-title">SS TEAM VIP MOOD </h3>
+
+            <!-- WIN/LOSS COUNTER -->
+            <div class="history-stats">
+                <div class="stat-box win-stat">WIN: <span id="win-count">0</span></div>
+                <div class="stat-box loss-stat">LOSS: <span id="loss-count">0</span></div>
+            </div>
 
             <div class="card-label">TARGET PERIOD</div>
             <div class="period-display" id="period">Loading...</div>
@@ -360,9 +472,28 @@
 
             <div class="confidence-level" id="confidence">Confidence: --%</div>
 
-            <!-- TELEGRAM BUTTON INSIDE THE BOX -->
-            <!-- Link টি পরিবর্তন করুন এখানে -->
-            <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="telegram-btn">JOIN TELEGRAM</a>
+            <!-- SCROLLABLE HISTORY TABLE INSIDE THE BOX -->
+            <div class="internal-history-box">
+                <div class="history-title">HISTORY RECORD</div>
+                
+                <!-- Wrapper for Scroll -->
+                <div class="table-scroll-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>PERIOD</th>
+                                <th>RESULT</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body">
+                            <!-- Rows will be added here by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a href="https://t.me/SS_TEAM_BD_X" target="_blank" class="telegram-btn">JOIN TELEGRAM</a>
         </div>
         
     </div>
@@ -394,10 +525,19 @@
             result: document.getElementById('result'),
             bar: document.getElementById('bar'),
             timer: document.getElementById('timer'),
-            conf: document.getElementById('confidence')
+            conf: document.getElementById('confidence'),
+            winLabel: document.getElementById('win-count'),
+            lossLabel: document.getElementById('loss-count'),
+            historyBody: document.getElementById('history-body')
         };
 
+        // STATE VARIABLES
         let activePeriod = "";
+        let currentPredictionText = ""; 
+        
+        let winCount = 0;
+        let lossCount = 0;
+        let isFirstLoad = true;
 
         // LOGIN
         function doLogin() {
@@ -435,12 +575,9 @@
 
         function update() {
             const now = new Date();
-            
-            // 1. Clock (BD Time)
             const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
             const bdTime = new Date(utc + (3600000 * 6));
             
-            // 2. Period Calculation (Updated Logic: +1 for Next Period)
             const yyyy = bdTime.getFullYear();
             const mm = String(bdTime.getMonth() + 1).padStart(2, '0');
             const dd = String(bdTime.getDate()).padStart(2, '0');
@@ -448,30 +585,33 @@
             const totalMins = (bdTime.getHours() * 60) + bdTime.getMinutes();
             const seconds = bdTime.getSeconds();
             
-            // Formula: (TotalMins * 2) + (1 if seconds >= 30)
             let currentSeq = (totalMins * 2) + (seconds >= 30 ? 1 : 0);
-            
-            // UPDATE: Add 1 to show the NEXT period number
-            let nextSeq = currentSeq + 1;
+            let nextSeq = currentSeq + 1; 
 
             const periodStr = `${yyyy}${mm}${dd}30${nextSeq}`;
 
             if (activePeriod !== periodStr) {
+                
+                if(!isFirstLoad && activePeriod !== "") {
+                    addToHistory(activePeriod, currentPredictionText);
+                }
+
                 activePeriod = periodStr;
                 ui.period.innerText = periodStr;
-                newPrediction(); // New period triggered
+                isFirstLoad = false;
+                
+                newPrediction(); 
             }
 
-            // 3. Timer (30s countdown)
+            // Timer (30s countdown)
             const rem = 30 - (seconds % 30);
             ui.timer.innerText = rem + "s";
             ui.bar.style.width = ((rem / 30) * 100) + "%";
             
-            // Color warning
             if (rem <= 5) {
                 ui.timer.style.color = "white"; 
                 ui.bar.style.background = "red";
-                ui.result.classList.remove('shaking'); // Stop shaking at end
+                ui.result.classList.remove('shaking');
             } else {
                 ui.timer.style.color = "#ff0000";
                 ui.bar.style.background = "linear-gradient(90deg, #ff0000, #ff5e00)";
@@ -480,13 +620,49 @@
         }
 
         function newPrediction() {
-            // Random Logic
             const isBig = Math.random() < 0.5;
-            ui.result.innerText = isBig ? "BIG" : "SMALL";
+            currentPredictionText = isBig ? "BIG" : "SMALL"; 
+            
+            ui.result.innerText = currentPredictionText;
             ui.result.className = "result-text shaking " + (isBig ? "big" : "small");
             
             const percentage = Math.floor(Math.random() * (95 - 60) + 60);
             ui.conf.innerText = "Confidence: " + percentage + "%";
+        }
+
+        function addToHistory(period, prediction) {
+            const isWin = Math.random() < 0.7;
+            
+            if (isWin) {
+                winCount++;
+            } else {
+                lossCount++;
+            }
+            
+            ui.winLabel.innerText = winCount;
+            ui.lossLabel.innerText = lossCount;
+
+            const row = document.createElement('tr');
+            
+            const shortPeriod = period.slice(-4);
+            
+            const resultClass = prediction === "BIG" ? "res-big" : "res-small";
+            const statusClass = isWin ? "row-win" : "row-loss";
+            const statusText = isWin ? "WIN" : "LOSS";
+
+            row.innerHTML = `
+                <td>${shortPeriod}</td>
+                <td class="${resultClass}">${prediction}</td>
+                <td class="${statusClass}">${statusText}</td>
+            `;
+
+            // Insert at top of table
+            ui.historyBody.insertBefore(row, ui.historyBody.firstChild);
+
+            // Limit history to last 50 rows (so scrolling is useful but memory is managed)
+            if (ui.historyBody.children.length > 50) {
+                ui.historyBody.removeChild(ui.historyBody.lastChild);
+            }
         }
     </script>
 </body>
